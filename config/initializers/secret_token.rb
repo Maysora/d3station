@@ -4,4 +4,21 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-D3station::Application.config.secret_token = 'e7ce8f6f3abf90ad98b5ff0fa699cd68a0f970331da91fd0b3d138aaae90e047e1be68d4af2cd5c15a60cec629fa04b7cd869e58ece2c721a0812bb1cc58ba45'
+
+if ENV['SECRET_TOKEN'].present?
+  D3station::Application.config.secret_token = ENV['SECRET_TOKEN']
+
+  # Do not raise an error if secret token is not available during assets precompilation
+elsif ENV['RAILS_GROUPS'] != 'assets'
+  raise <<-ERROR
+
+  SECRET_TOKEN ENV not set, run:
+  
+    heroku config:add SECRET_TOKEN="$(bundle exec rake secret)"
+  
+  or
+
+    echo "D3station::Application.config.secret_token = '$(bundle exec rake secret)'" > config/initializers/secret_token.rb
+
+  ERROR
+end

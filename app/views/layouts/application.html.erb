@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>D3station</title>
+  <title>D3 Philanthropy Station</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= controller_name.parameterize %>-controller <%= action_name.parameterize %>-action<%= " signed-in" if user_signed_in? %>">
 
-<%= yield %>
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "D3 Philanthropy Station", :root, class: "brand" %>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <%= nav_link_to "Home", :root %>
+          <%= nav_link_to "Helpers", helpers_path %>
+        </ul>
+        <ul class="nav pull-right">
+          <% if user_signed_in? %>
+            <%= nav_link_to "Logout", destroy_user_session_path, method: :delete, class: "btn-danger" %>
+          <% else %>
+            <%= nav_link_to "Sign In", new_user_session_path %>
+            <%= nav_link_to "Sign Up", new_user_registration_path %>
+          <% end -%>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<header>
+  <div class="container">
+  <% flash.each do |name, msg| %>
+    <% if msg.present? %>
+      <div class="alert alert-<%= name %>">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= sanitize(msg.html_safe, tags: %w(br)) %>
+      </div>
+    <% end -%>
+  <% end %>
+  </div>
+</header>
 
+<div class="container">
+  <%= yield %>
+</div>
+
+<div id="twitch_modal" class="twitch-modal modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-body"></div>
+</div>
 </body>
 </html>

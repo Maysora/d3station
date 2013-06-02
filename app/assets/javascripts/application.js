@@ -12,4 +12,26 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-all
+//= require select2
 //= require_tree .
+
+
+$(function(){
+  $('#twitch_modal').on('hidden', function () {
+    $('.modal-body', this).html('');
+    $(this).removeData('modal');
+  });
+
+  var $categorySelect = $('#user_category_list');
+  $categorySelect.select2({
+    tokenSeparators: [','],
+    multiple: true,
+    selectOnBlur: true,
+    createSearchChoice: function(term){
+      return {id: term, text: term};
+    },
+    minimumInputLength: 2,
+    tags: $categorySelect.data('categories')
+  });
+});

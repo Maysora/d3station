@@ -1,1 +1,6 @@
-Hello!
+online: <%= @twitch_data.online %><br />
+preview: <%= image_tag @twitch_data.preview if @twitch_data.online %><br />
+viewers: <%= @twitch_data.viewers %><br />
+game: <%= @twitch_data.game %><br />
+<br />
+<br />

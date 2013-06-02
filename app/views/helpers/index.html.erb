@@ -1,0 +1,31 @@
+<h2>
+  Helpers
+</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Categories</th>
+      <th>TwitchTV</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= battlenet_link_to user %>
+        </td>
+        <td>
+          <%= category_list_for user %>
+        </td>
+        <td>
+          <%= twitch_popup_link_to user %>
+        </td>
+        <td>
+          <%= link_to "Details", helper_path(user), class: "btn btn-mini" %>
+        </td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>

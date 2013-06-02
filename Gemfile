@@ -6,7 +6,9 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'cathodic', '~> 0.1.0'
+gem 'devise', '~> 2.2.4'
+gem 'cancan', '~> 1.6.10'
+gem 'acts-as-taggable-on', '~> 2.4.1'
 
 # Gems used only for assets and not required
 # in production environments by default.
