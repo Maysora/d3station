@@ -1,0 +1,16 @@
+common: &common
+  adapter: postgresql
+  username: d3station
+  password: 
+
+development:
+  <<: *common
+  database: d3station_development
+
+test:
+  <<: *common
+  database: d3station_test
+
+production:
+  <<: *common
+  database: d3station_production
